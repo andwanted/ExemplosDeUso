@@ -18,7 +18,7 @@ public class Program {
 		list.add(new Product("Tablet", 450.00));
 
 
-		// 2
+		// 1
 		list.sort((p1, p2) -> p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase()));
 
 		for (Product l : list) {
