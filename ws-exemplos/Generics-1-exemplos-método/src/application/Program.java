@@ -9,13 +9,13 @@ public class Program {
 		Integer[] inteiros = { 1, 2, 3 };
 		String[] strings = { "Olá", "Mundo" };
 
-		//imprimirArray(inteiros);
+		imprimirArray(inteiros);
 		imprimirArray(strings);
 
 	}
 
-	public static void imprimirArray(String[] array) {
-		for (String elemento : array) {
+	public static <T> void imprimirArray(T[] array) {
+		for (T elemento : array) {
 			System.out.println(elemento);
 		}
 	}
