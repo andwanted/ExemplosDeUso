@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Product;
-import service.RemovePredicate;
 
 public class Program {
 
@@ -20,7 +19,9 @@ public class Program {
 		list.add(new Product("Camiseta Polo", 80.00, 000000, 55510));
 
 
-		list.removeIf(Product::staticRemovePredicate);
+		
+		list.removeIf(Product::nonStaticRemovePredicate);
+		
 		
 		for (Product l : list) {
 			System.out.println(l);
