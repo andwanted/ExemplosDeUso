@@ -47,10 +47,6 @@ public class Product {
 		this.batch = batch;
 	}
 
-	public static void staticPriceUpdate(Product p) {
-		// TODO Auto-generated method stub
-		p.setPrice(p.getPrice() * 1.1);
-	}
 
 	@Override
 	public String toString() {
