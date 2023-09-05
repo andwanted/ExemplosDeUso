@@ -47,6 +47,9 @@ public class Product {
 		this.batch = batch;
 	}
 
+	public static String staticUpperCaseName(Product p) {
+		return p.getName().toUpperCase();
+	}
 
 	@Override
 	public String toString() {
