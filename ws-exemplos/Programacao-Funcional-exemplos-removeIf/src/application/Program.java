@@ -19,7 +19,8 @@ public class Program {
 		list.add(new Product("Notebook", 2000.00, 000000, 55510));
 		list.add(new Product("Camiseta Polo", 80.00, 000000, 55510));
 
-		list.removeIf(new RemovePredicate());
+
+		list.removeIf(Product::staticRemovePredicate);
 		
 		for (Product l : list) {
 			System.out.println(l);
