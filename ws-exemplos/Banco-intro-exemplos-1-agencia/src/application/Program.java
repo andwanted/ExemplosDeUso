@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.DB;
 import entities.Carro;
@@ -43,33 +45,46 @@ public class Program {
 		Connection conn = null;
 		PreparedStatement st = null;
 
-		try {
-			conn = DB.getConnection();
-			st = conn.prepareStatement("INSERT INTO veiculos " + "(marca,modelo,ano,placa)" + "VALUES " + "(?,?,?,?)",
-					Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, "Fiat");
-			st.setString(2, "Doblo");
-			st.setString(3, "2014");
-			st.setString(4, "JKO-2243");
+		List<Carro> carros = new ArrayList<>();
 
-			int rowsAffected = st.executeUpdate();
+		carros.add(new Carro("Fiat", "Doblo", 2014, "JKO-2424"));
+		carros.add(new Carro("Fiat", "Palio Young", 2002, "PAO-3421"));
+		carros.add(new Carro("Fiat", "Palio ED", 1997, "EDE-9877"));
+		carros.add(new Carro("Fiat", "Stilo", 2005, "RER-2424"));
+		carros.add(new Carro("Hyunday", "Tucson", 2018, "JEE-1631"));
 
-			if (rowsAffected > 0) {
-				ResultSet rs = st.getGeneratedKeys();
-				while (rs.next()) {
-					int id = rs.getInt(1);
-					System.out.println("Done! Id: " + id);
+		for (int i = 0; i < carros.size(); i++) {
+
+			try {
+				conn = DB.getConnection();
+				st = conn.prepareStatement(
+						"INSERT INTO veiculos " + "(marca,modelo,ano,placa)" + "VALUES " + "(?,?,?,?)",
+						Statement.RETURN_GENERATED_KEYS);
+				st.setString(1, carros.get(i).getMarca());
+				st.setString(2, carros.get(i).getModelo());
+				st.setInt(3, carros.get(i).getAno());
+				st.setString(4, carros.get(i).getPlaca());
+
+				int rowsAffected = st.executeUpdate();
+
+				if (rowsAffected > 0) {
+					ResultSet rs = st.getGeneratedKeys();
+					while (rs.next()) {
+						int id = rs.getInt(1);
+						System.out.println("Done! Id: " + id);
+					}
+				} else {
+					System.out.println("No rows affected!");
 				}
-			} else {
-				System.out.println("No rows affected!");
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
+				DB.closeStatement(st);
+				DB.closeConnection();
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-
-			DB.closeStatement(st);
-			DB.closeConnection();
 		}
 
 	}
@@ -80,19 +95,15 @@ public class Program {
 
 		try {
 			conn = DB.getConnection();
-			st = conn.prepareStatement("DELETE FROM veiculos "
-					+ "WHERE ano = ?",
-					Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("DELETE FROM veiculos " + "WHERE ano = ?", Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, 2018);
-			
 
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected > 0) {
-				
-				
-			System.out.println("Done!");
-				
+
+				System.out.println("Done!");
+
 			} else {
 				System.out.println("No rows affected!");
 			}
@@ -112,8 +123,8 @@ public class Program {
 
 		Carro carro = new Carro();
 
-		//remover();
-		//inserir();
+		// remover();
+		inserir();
 		consultar();
 		/*
 		 * while (rs.next()) {
