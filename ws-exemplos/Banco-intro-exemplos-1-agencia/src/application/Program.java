@@ -47,10 +47,10 @@ public class Program {
 			conn = DB.getConnection();
 			st = conn.prepareStatement("INSERT INTO veiculos " + "(marca,modelo,ano,placa)" + "VALUES " + "(?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, "Honda");
-			st.setString(2, "City");
-			st.setString(3, "2011");
-			st.setString(4, "EDE-3417");
+			st.setString(1, "Fiat");
+			st.setString(2, "Doblo");
+			st.setString(3, "2014");
+			st.setString(4, "JKO-2243");
 
 			int rowsAffected = st.executeUpdate();
 
